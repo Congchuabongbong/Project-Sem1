@@ -1,0 +1,110 @@
+<%-include('.. /partial/head.ejs')%>
+
+    <head>
+        <title>Gallery</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/css/gallery.css">
+    </head>
+
+    <body>
+        <%-include('.. /partial/loader.ejs')%>
+            <%-include('.. /partial/sidebar.ejs')%>
+
+                <main role="main" id="main" style="background: floralwhite">
+                    <section class="tiles-a">
+                        <ul>
+                            <% for(var i=0; i < list.length; i++) { var arrayImage=list[i].thumbnail.split(','); %>
+                                <li>
+                                    <% if (arrayImage.length> 0){
+                                        for (var j = 0; j < arrayImage.length; j++) {
+                                            if(arrayImage[j].length===0){continue;} %>
+                                            <a href="#"
+                                                style="background: url('<%=arrayImage[j]%>'); background-size: cover;"
+                                                aria-controls="aside" aria-expanded="false">
+                                                <div class="details visually-hidden">
+                                                    <img src="<%=arrayImage[j]%>" alt="Starry Night">
+                                                    <% } }%>
+                                                        <div class="text-copy wrapper">
+                                                            <h3>
+                                                                <%= list[i].name%>
+                                                            </h3>
+                                                            <p>
+                                                                <%= list[i].description%>
+                                                            </p>
+                                                        </div>
+                                                </div>
+                                            </a>
+                                </li>
+                                <% } %>
+                        </ul>
+                    </section>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination pagination-md justify-content-center">
+                            <% if (page> 1) {
+                                %>
+                                <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                                <li class="page-item"><a class="page-link" href="?page=<%= page - 1 %>">Previous</a>
+                                </li>
+                                <% } %>
+
+                                    <% if (page> 2) {
+                                        %>
+                                        <li class="page-item"><a class="page-link" href="?page=<%= page - 2 %>">
+                                                <%= page - 2 %>
+                                            </a></li>
+                                        <% } %>
+                                            <% if (page> 1) {
+                                                %>
+                                                <li class="page-item"><a class="page-link" href="?page=<%= page - 1 %>">
+                                                        <%= page - 1 %>
+                                                    </a></li>
+                                                <% } %>
+
+                                                    <li class="page-item active"><a class="page-link" href="#">
+                                                            <%= page %>
+                                                        </a></li>
+
+                                                    <% if (page + 1 <=totalPage) { %>
+                                                        <li class="page-item"><a class="page-link"
+                                                                href="?page=<%= page + 1 %>">
+                                                                <%= page + 1 %>
+                                                            </a></li>
+                                                        <% } %>
+
+                                                            <% if (page + 2 <=totalPage) { %>
+                                                                <li class="page-item"><a class="page-link"
+                                                                        href="?page=<%= page + 2 %>">
+                                                                        <%= page + 2 %>
+                                                                    </a></li>
+                                                                <% } %>
+
+                                                                    <% if (page < totalPage) { %>
+                                                                        <li class="page-item"><a class="page-link"
+                                                                                href="?page=<%= page + 1 %>">Next</a>
+                                                                        </li>
+                                                                        <li class="page-item"><a class="page-link"
+                                                                                href="?page=<%= totalPage %>">Last</a>
+                                                                        </li>
+                                                                        <% } %>
+                        </ul>
+                    </nav>
+                </main>
+                <aside role="complementary" id="aside" aria-hidden="true" aria-expanded="false">
+                    <a href="#" class="close"><img
+                            src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/15309/close-white-thin.svg"
+                            alt="Close button"><span class="visually-hidden">Return to main content</span></a>
+                    <div class="aside--details" tabindex="0" aria-live="polite" aria-atomic="true"
+                        aria-label="Image details">
+                    </div>
+                </aside>
+                <!--/Gallery-->
+                <!--pagination-->
+                <%-include('.. /partial/footer.ejs')%>
+                    <%-include('.. /partial/js.ejs')%>
+                        <script src="/js/contact.js"></script>
+                        <script type="text/javascript" src="/js/gallery.js"></script>
+
+    </body>
+
+    </html>

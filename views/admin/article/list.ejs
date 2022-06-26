@@ -1,0 +1,219 @@
+<!-- header -->
+<%- include('../partial/header.ejs') %>
+<head>
+    <style>
+        tr {
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <!-- sidebar -->
+    <%- include('../partial/left-menu.ejs') %>
+    <div class="main">
+        <!-- nav-bar -->
+        <%- include('../partial/nav-bar.ejs') %>
+        <main class="content">
+            <div class="container-fluid p-0">
+                <%
+                if(typeof message !== "undefined" && message.length > 0){
+                %>
+                    <div class="alert alert-success alert-dismissible p-2">
+                        <%= message %>
+                        <button type="button" class="close p-2" data-dismiss="alert" aria-hidden="true">×</button>
+                    </div>
+                <%
+                }
+                %>
+                <h1 class="section-title">LIST OF ARTICLES</h1>
+                <form action="/admin/article" method="get" name="searchForm">
+                    <div class="row mb-3" style="justify-content: space-between;">
+                        <div class="col-md-4">
+                            <label class="mb-2" for="inputEmail4">Categories</label>
+                            <!--                                            danh muc san pham duoc lay ra tu bang categories-->
+                            <select name="categoryId" id="categorySelect" class="form-control">
+                                <option value="">---ALL---</option>
+                                <% for(var i = 0; i < cate.length; i++) {
+                                %>
+                                    <option value="<%= cate[i]._id %>" <%= currentCategoryID == cate[i]._id ? 'selected' : '' %>><%= cate[i].name %></option>
+                                <%
+                                } %>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="mb-2" for="example1_filter">Search</label>
+                            <div id="example1_filter" class="dataTables_filter">
+                                <input class="form-control" type="search" aria-controls="example1" name="keyword" value="<%=currentKeyword%>" placeholder="Search...">
+                                <input class="form-control" type="hidden" name="page" value="<%=page%>">
+                                <input class="form-control" type="hidden" name="limit" value="<%=limit%>">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row m-auto">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th style="width: 1%" class="text-center">Number</th>
+                            <th style="width: 12%" class="text-center">Title</th>
+                            <th style="width: 4%" class="text-center">Author</th>
+                            <th style="width: 10%" class="text-center">Calligraphy Genre</th>
+                            <th style="width: 12%" class="text-center">Article Thumbnail</th>
+                            <th style="width: 12%" class="text-center">Create At</th>
+                            <th style="width: 12%" class="text-center">Update At</th>
+                            <th style="width: 13%" class="text-center">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for(var i = 0; i < list1.length; i++) {
+                        %>
+                            <tr>
+                                <td><%= i + 1 %></td>
+                                <td><%= list1[i].name %></td>
+                                <td><%= list1[i].author %></td>
+                                <td><%= list1[i].category.name %></td>
+                                <td>
+                                    <img class="img-thumbnail" src="<%= list1[i].thumnail %>" alt="">
+                                </td>
+                                <td class="text-center"><%= moment(list1[i].createAt).format('DD MMMM YYYY - HH:mm:ss') %></td>
+                                <td class="text-center"><%= moment(list1[i].updateAtttt).format('DD MMMM YYYY - HH:mm:ss') %></td>
+                                <td class="table-action" style="text-align: center">
+                                    <a href="/admin/article/detail?id=<%= list1[i]._id %>" title="view detail">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                             viewBox="0 0 24 24"
+                                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                             stroke-linejoin="round" class="feather feather-info align-middle mr-2"
+                                             data-feather=>
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                        </svg>
+                                    </a>&nbsp;&nbsp;
+                                    <a href="/admin/article/edit?id=<%= list1[i]._id %>&categoryId=<%= list1[i].category._id %>"
+                                       title="edit">
+                                        <a href="/admin/article/edit?id=<%= list1[i]._id %>&categoryId=<%= list1[i].category._id %>"
+                                           title="edit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24"
+                                                 fill="none" stroke="currentColor" stroke-width="2"
+                                                 stroke-linecap="round"
+                                                 stroke-linejoin="round" class="feather feather-edit align-middle mr-2">
+                                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                            </svg>
+                                            <span class="align-middle"></span>
+                                        </a>&nbsp;&nbsp;
+                                        <a href="/admin/article/delete?id=<%= list1[i]._id %>" title="delete article">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24"
+                                                 fill="none" stroke="currentColor" stroke-width="2"
+                                                 stroke-linecap="round"
+                                                 stroke-linejoin="round"
+                                                 class="feather feather-delete align-middle mr-2">
+                                                <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+                                                <line x1="18" y1="9" x2="12" y2="15"></line>
+                                                <line x1="12" y1="9" x2="18" y2="15"></line>
+                                            </svg>
+                                        </a>
+                                    </a>
+                                </td>
+                            </tr>
+                        <%
+                        } %>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th style="width: 1%" class="text-center">Number</th>
+                            <th style="width: 12%" class="text-center">Title</th>
+                            <th style="width: 4%" class="text-center">Author</th>
+                            <th style="width: 10%" class="text-center">Calligraphy Genre</th>
+                            <th style="width: 12%" class="text-center">Article Thumbnail</th>
+                            <th style="width: 12%" class="text-center">Create At</th>
+                            <th style="width: 12%" class="text-center">Update At</th>
+                            <th style="width: 13%" class="text-center">Action</th>
+
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="pagination mt-3 row" style="display: flex;align-items: center">
+                    <p class="col-lg-3">Showing <%= (page - 1) * limit + 1 %> to <%= (page - 1) * limit + limit %>
+                        of <%= totalItem %> articles</p>
+                    <nav aria-label="Page navigation example" class="col-lg-9">
+                        <ul class="pagination pagination-md ml-7">
+                            <%
+                            if (page > 1) {
+                            %>
+                            <li class="page-item"><a class="page-link" href="1">First</a></li>
+                            <li class="page-item"><a class="page-link" href="<%=parseInt(page) - 1%>">Previous</a></li>
+                            <%
+                            }
+                            %>
+
+                            <%
+                            if (page > 2) {
+                            %>
+                            <li class="page-item"><a class="page-link" href="<%=parseInt(page) - 2%>"><%=page - 2%></a></li>
+                            <%
+                            }
+                            %>
+                            <%
+                            if (page > 1) {
+                            %>
+                            <li class="page-item"><a class="page-link" href="<%=parseInt(page) - 1%>"><%=page - 1%></a></li>
+                            <%
+                            }
+                            %>
+
+                            <li class="page-item active"><a class="page-link" href="#"><%= page %></a></li>
+
+                            <%
+                            if (page + 1 <= totalPage) {
+                            %>
+                            <li class="page-item"><a class="page-link" href="<%=parseInt(page) + 1%>"><%= page + 1 %></a></li>
+                            <%
+                            }
+                            %>
+
+                            <%
+                            if (page + 2 <= totalPage) {
+                            %>
+                            <li class="page-item"><a class="page-link" href="<%=parseInt(page) + 2%>"><%= page + 2 %></a></li>
+                            <%
+                            }
+                            %>
+
+                            <%
+                            if (page < totalPage) {
+                            %>
+                            <li class="page-item"><a class="page-link" href="<%=parseInt(page) + 2%>">Next</a></li>
+                            <li class="page-item"><a class="page-link" href="<%=totalPage%>">Last</a></li>
+                            <%
+                            }
+                            %>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </main>
+        <!-- footer -->
+        <%- include('../partial/footer.ejs') %>
+    </div>
+</div>
+<!-- js -->
+<%- include('../partial/js.ejs') %>
+<script>
+    var categorySelect = document.forms['searchForm']['categoryId'];
+    categorySelect.onchange = function () {
+        document.forms['searchForm'].submit();
+    }
+
+    $('.page-link').click(function (e) {
+        e.preventDefault();
+        document.forms['searchForm']['page'].value = $(this).attr('href');
+        document.forms['searchForm'].submit();
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+html {
+  scroll-behavior: smooth;
+}
+main {
+    padding: 30px 0;
+    background-color: rgba(226,221,222,1);
+    font-family: 'Montserrat';
+}
+
+.posts-wrapper {
+    color: rgba(43,43,43,1);
+
+}
+
+.post-detail {
+    margin: 20px;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+
+.post-title {
+    font-family: 'AmericanaTOTExtBol';
+    font-weight: 550;
+    font-style: normal;
+}
+
+main a {
+    text-decoration: none;
+    color: rgba(43,43,43,1);
+}
+
+main a:hover {
+    color: #6c757d;
+    cursor: pointer;
+}
+
+.post-summary {
+    font-weight: 600;
+    font-size: 12px;
+    font-style: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
+
+.categories-tag {
+    font-weight: 1000;
+    font-style: normal;
+}

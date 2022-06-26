@@ -1,0 +1,184 @@
+<!--Header-->
+<%-include('../partial/header')%>
+<!--Header-->
+<body>
+<div class="wrapper">
+    <!--left-menu-->
+    <%-include('../partial/left-menu')%>
+    <!--left-menu-->
+    <div class="main">
+        <!--Navbar-->
+        <%-include('../partial/nav-bar')%>
+        <!--Navbar-->
+        <main class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <%
+                        if(typeof message !== "undefined" && message.length > 0){
+                        %>
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <%=message%>
+                        </div>
+                        <%
+                        }
+                        %>
+                        <div class="card">
+                            <%
+                            if (list == null || list.length == 0){
+                            %>
+                            <div class="card-header">
+                                <h3 class="card-title">There are currently no photos, please <a href="/admin/gallery/create">click here</a> to add new.</h3>
+                            </div>
+                            <%
+                            }else{
+                            %>
+                            <div class="card-header">
+                                <h1 >List photos</h1>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example2" class="table table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 5%" class="text-center">Number</th>
+                                        <th style="width: 20%" class="text-center">Name</th>
+                                        <th style="width: 20%" class="text-center">Photo posted</th>
+                                        <th style="width: 18%" class="text-center">Create At</th>
+                                        <th style="width: 17%" class="text-center">Update At</th>
+                                        <th style="width: 20%" class="text-center">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <% for(var i = 0; i < list.length; i++) {
+                                    %>
+                                        <tr>
+                                            <td><%= i+ 1%></td>
+                                            <td><%= list[i].name%></td>
+                                            <%
+                                            var arrayImage = list[i].thumbnail.split(',');
+                                            %>
+                                            <td>
+                                                <% if (arrayImage.length > 0){
+                                                    for (var j = 0; j < arrayImage.length; j++) {
+                                                     if(arrayImage[j].length === 0){continue;}
+                                                %>
+                                                <img src="<%=arrayImage[j]%>" style="width:150px" class="img-thumbnail center" alt="">
+                                            </td>
+                                            <td class="text-center"><%= moment(list[i].createAt).format('DD MMMM YYYY - HH:mm:ss') %></td>
+                                            <td class="text-center"><%= moment(list[i].updateAt).format('DD MMMM YYYY - HH:mm:ss') %></td>
+                                                <%
+                                                }
+                                                }%>
+                                            <td class="table-action">
+                                                <a href="/admin/gallery/detail?id=<%=list[i]._id%>" title="view detail">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info align-middle mr-2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                                </a>&nbsp;&nbsp;
+                                                <a href="/admin/gallery/edit?id=<%=list[i]._id%>" title="edit">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit align-middle mr-2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> <span class="align-middle"></span>
+                                                </a>&nbsp;&nbsp;
+                                                <a href="/admin/gallery/delete?id=<%=list[i]._id%>" title="delete gallery">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-delete align-middle mr-2"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <%
+                                    }%>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                    <tr>
+                                        <th style="width: 5%" class="text-center">Number</th>
+                                        <th style="width: 20%" class="text-center">Name</th>
+                                        <th style="width: 20%" class="text-center">Photo posted</th>
+                                        <th style="width: 18%" class="text-center">Create At</th>
+                                        <th style="width: 17%" class="text-center">Update At</th>
+                                        <th style="width: 20%" class="text-center">Action</th>
+                                    </tr>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                                <%
+                            }
+                                %>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+
+                        <!--             -->
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <div class="pagination row" style="display: flex;align-items: center">
+                    <p class="col-lg-3">Showing <%= (page - 1) * limit + 1 %> to <%= (page - 1) * limit + limit %>
+                        of <%= totalItem %> photos</p>
+                    <nav aria-label="Page navigation example" class="col-lg-9">
+                        <ul class="pagination pagination-md ml-7">
+                            <%
+                                if (page > 1) {
+                            %>
+                            <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                            <li class="page-item"><a class="page-link" href="?page=<%=page - 1%>">Previous</a></li>
+                            <%
+                                }
+                            %>
+
+                            <%
+                                if (page > 2) {
+                            %>
+                            <li class="page-item"><a class="page-link" href="?page=<%=page - 2%>"><%= page - 2 %></a></li>
+                            <%
+                                }
+                            %>
+                            <%
+                                if (page > 1) {
+                            %>
+                            <li class="page-item"><a class="page-link" href="?page=<%=page - 1%>"><%= page - 1 %></a></li>
+                            <%
+                                }
+                            %>
+
+                            <li class="page-item active"><a class="page-link" href="#"><%= page %></a></li>
+
+                            <%
+                                if (page + 1 <= totalPage) {
+                            %>
+                            <li class="page-item"><a class="page-link" href="?page=<%=page + 1%>"><%= page + 1 %></a></li>
+                            <%
+                                }
+                            %>
+
+                            <%
+                                if (page + 2 <= totalPage) {
+                            %>
+                            <li class="page-item"><a class="page-link" href="?page=<%=page + 2%>"><%= page + 2 %></a></li>
+                            <%
+                                }
+                            %>
+
+                            <%
+                                if (page < totalPage) {
+                            %>
+                            <li class="page-item"><a class="page-link" href="?page=<%=page + 1%>">Next</a></li>
+                            <li class="page-item"><a class="page-link" href="?page=<%=totalPage%>">Last</a></li>
+                            <%
+                                }
+                            %>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- /.row -->
+            </div>
+        </main>
+
+        <!--footer-->
+        <%-include('../partial/footer')%>
+        <!--footer-->
+    </div>
+</div>
+<%-include('../partial/js.ejs')%>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<%- include('../partial/head.ejs') %>
+
+    <head>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <title>
+            <%= item.name %>
+        </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+        <link rel="stylesheet" href="/css/blog_detail.css">
+    </head>
+
+    <body>
+        <%- include('../partial/sidebar.ejs') %>
+            <%- include('../partial/loader.ejs') %>
+                <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+                <article>
+                    <div class="container-fluid">
+                        <div class="row box-post">
+                            <div class="col-8">
+                                <div class="content-section">
+                                    <div class="w3-container">
+
+                                        <h1>
+                                            <%= item.name %>
+                                        </h1>
+                                        <h4><span class="w3-opacity">
+                                                <%= moment(item.createAt).format('DD MMMM YYYY') %>
+                                            </span></h4>
+                                        <h4><span style="color: darkblue; font-style: italic" class="w3-opacity">
+                                                <%= item.category.name %>
+                                            </span></h4>
+                                        <div class="mt-3 mb-3">
+                                            <div class="rw-ui-container mt-2 mb-3"></div>
+                                        </div>
+                                    </div>
+                                    <div class="w3-container">
+                                        <%- item.articleDetail %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 ">
+                                <div class="sidebar-item">
+                                    <div class="make-me-sticky">
+                                        <div class="">
+                                            <img src="https://res.cloudinary.com/quynv300192/image/upload/v1621622536/PROJECT%20KI%201/unnamed_glvtg4.jpg"
+                                                style="width:100%; height: 130px; object-fit: cover">
+                                            <div class="w3-container w3-padding">
+                                                <h4><b>Learn more about <%= item.category.name %></b></h4>
+                                            </div>
+                                            <ul class="w3-ul w3-hoverable w3-white">
+                                                <% var lisLength=0; if (list.length < 3) { lisLength=list.length; } else
+                                                    { lisLength=3 } %>
+                                                    <% for(var i=0; i < lisLength; i++) { %>
+                                                        <% if (list[i]._id.equals(item._id)){ continue; }else { %>
+                                                            <a
+                                                                href="/article/detail?id=<%= list[i]._id %>&categoryID=<%= list[i].category._id %>">
+                                                                <li class="w3-padding-16" style="height: max-content">
+                                                                    <img src="<%= list[i].thumnail %>" alt="Image"
+                                                                        class="w3-left w3-margin-right"
+                                                                        style="width:30px; height: 30px ;border-radius: 2px">
+                                                                    <span style="height: 50px; overflow: hidden"
+                                                                        class="w3-large">
+                                                                        <%= list[i].name %>
+                                                                    </span><br>
+                                                                    <!--<span>Click here</span>-->
+                                                                </li>
+                                                            </a>
+                                                            <% } %>
+                                                                <% } %>
+                                            </ul>
+                                        </div>
+                                        <hr>
+                                        <!-- About Card -->
+                                        <div class="">
+                                            <img src="https://res.cloudinary.com/quynv300192/image/upload/v1621622547/PROJECT%20KI%201/Screenshot_10_dodejr.jpg"
+                                                style="width:100%; height: 130px; object-fit: cover">
+                                            <div class="w3-container w3-white">
+                                                <h4><b>Recently viewed article</b></h4>
+                                                <ul class="w3-ul w3-hoverable w3-white container">
+                                                    <% var showList=0 %>
+                                                        <% for(var i=0; i < recentView.length; i++) { %>
+                                                            <a
+                                                                href="/article/detail?id=<%= recentView[i]._id %>&categoryID=<%= recentView[i].category._id %>">
+                                                                <li class="w3-padding-16" style="height: max-content">
+                                                                    <img src="<%= recentView[i].thumnail %>" alt="Image"
+                                                                        class="w3-left w3-margin-right"
+                                                                        style="width:30px; height: 30px;border-radius: 2px">
+                                                                    <span style="height: 50px; overflow: hidden"
+                                                                        class="w3-large">
+                                                                        <%= recentView[i].name %>
+                                                                    </span><br>
+                                                                    <!--<span>Click here</span>-->
+                                                                </li>
+                                                            </a>
+                                                            <% } %>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <!-- Labels / tags -->
+                                        <div class="">
+                                            <div class="w3-container w3-padding">
+                                                <h4>Tags</h4>
+                                            </div>
+                                            <div class="w3-container w3-white">
+                                                <p>
+                                                    <a href="/article/list?categoryID=609ca925458f543f20288670"><span
+                                                            class="w3-tag <%= item.category._id == '609ca925458f543f20288670' ? 'w3-black' : '' %>w3-light-grey w3-small w3-margin-bottom">Calligraphy
+                                                            Beginner</span></a>
+                                                    <a href="/article/list?categoryID=609b6bc7fe252e3808a76e09"><span
+                                                            class="w3-tag <%= item.category._id == '609b6bc7fe252e3808a76e09' ? 'w3-black' : '' %>w3-light-grey w3-small w3-margin-bottom">Kids</span></a>
+                                                    <a href="/article/list?categoryID=609b6bd9fe252e3808a76e0a"><span
+                                                            class="w3-tag <%= item.category._id == '609b6bd9fe252e3808a76e0a' ? 'w3-black' : '' %>w3-light-grey w3-small w3-margin-bottom">Arabic</span></a>
+                                                    <a href="/article/list?categoryID=609b81e8056c9e30b4d3d451"><span
+                                                            class="w3-tag <%= item.category._id == '609b81e8056c9e30b4d3d451' ? 'w3-black' : '' %>w3-light-grey w3-small w3-margin-bottom">Greek</span></a>
+                                                    <a href="/article/list?categoryID=609b81d9056c9e30b4d3d450"><span
+                                                            class="w3-tag <%= item.category._id == '609b81d9056c9e30b4d3d450' ? 'w3-black' : '' %>w3-light-grey w3-small w3-margin-bottom">Indic</span></a>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <!-- END Introduction Menu -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <main style="background-color: white">
+                    <section class="container-xl">
+                        <br>
+                        </div>
+                        <div class="fb-comments" data-href="http://localhost:3000/article/detail?id=<%= item._id %>"
+                            data-width="800" data-numposts="3" data-order-by="reverse_time"></div>
+                    </section>
+                </main>
+                <%- include('../partial/footer.ejs') %>
+                    <%- include('../partial/js.ejs') %>
+                        <script src="/js/blog_detail.js"></script>
+                        <script type="text/javascript">(function (d, t, e, m) {
+
+                                // Async Rating-Widget initialization.
+                                window.RW_Async_Init = function () {
+
+                                    RW.init({
+                                        huid: "475972",
+                                        uid: "4a8ae4d9e652f3f8f30d9f9a135f446f",
+                                        source: "website",
+                                        options: {
+                                            "advanced": {
+                                                "font": {
+                                                    "size": "20px",
+                                                    "bold": true,
+                                                    "type": "\"Comic Sans MS\""
+                                                }
+                                            },
+                                            "size": "large",
+                                            "type": "nero",
+                                            "style": "thumbs2",
+                                            "isDummy": false
+                                        }
+                                    });
+                                    RW.render();
+                                };
+                                // Append Rating-Widget JavaScript library.
+                                var rw, s = d.getElementsByTagName(e)[0], id = "rw-js",
+                                    l = d.location, ck = "Y" + t.getFullYear() +
+                                        "M" + t.getMonth() + "D" + t.getDate(), p = l.protocol,
+                                    f = ((l.search.indexOf("DBG=") > -1) ? "" : ".min"),
+                                    a = ("https:" == p ? "secure." + m + "js/" : "js." + m);
+                                if (d.getElementById(id)) return;
+                                rw = d.createElement(e);
+                                rw.id = id;
+                                rw.async = true;
+                                rw.type = "text/javascript";
+                                rw.src = p + "//" + a + "external" + f + ".js?ck=" + ck;
+                                s.parentNode.insertBefore(rw, s);
+                            }(document, new Date(), "script", "rating-widget.com/"));</script>
+                        <script async defer crossorigin="anonymous"
+                            src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v10.0"
+                            nonce="usB5JJXB"></script>
+    </body>
+
+    </html>

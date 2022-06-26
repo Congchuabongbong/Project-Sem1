@@ -1,0 +1,124 @@
+<%-include('.. /partial/head.ejs')%>
+
+    <head>
+        <title>Sign In/Sign Up</title>
+        <link rel="stylesheet" href="/css/signUp-login.css">
+    </head>
+
+    <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+        <%-include('.. /partial/loader.ejs')%>
+            <%-include('.. /partial/sidebar.ejs')%>
+                <div class="box">
+                    <div class="forms-box">
+                        <!-- signin-signup -->
+                        <div class="signin-signup">
+                            <form action="#" class="sign-in-form">
+                                <h2 class="title">Sign in</h2>
+                                <div class="input-field">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" placeholder="Username" class="userName" />
+                                    <span class="text-danger"></span>
+                                </div>
+                                <div class="input-field">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" placeholder="Password" class="userPassword" />
+                                </div>
+                                <input type="submit" value="Login" class="btn solid btn-login" />
+                                <p class="social-text">Or Sign in with social platforms</p>
+                                <div class="social-media">
+                                    <a href="#" class="social-icon">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="#" class="social-icon">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="#" class="social-icon">
+                                        <i class="fab fa-google"></i>
+                                    </a>
+                                    <a href="#" class="social-icon">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                </div>
+                            </form>
+                            <!-- sign-up-form -->
+                            <form action="#" class="sign-up-form">
+                                <h2 class="title">Sign up</h2>
+                                <div class="input-field">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" placeholder="Username" class="signUp-userName" />
+                                </div>
+                                <div class="input-field">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" placeholder="Email" class="signUp-email" />
+                                </div>
+                                <div class="input-field">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" placeholder="Password" class="signUp-password" />
+                                </div>
+                                <input type="submit" class="btn btn-signUp" value="Sign up" />
+                                <p class="social-text">Or Sign up with social platforms</p>
+                                <div class="social-media">
+                                    <a href="#" class="social-icon">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="#" class="social-icon">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="#" class="social-icon">
+                                        <i class="fab fa-google"></i>
+                                    </a>
+                                    <a href="#" class="social-icon">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="panels-box">
+                        <div class="panel left-panel">
+                            <div class="content">
+                                <h3>New here ?</h3>
+                                <p>
+                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
+                                    ex ratione. Aliquid!
+                                </p>
+                                <button class="btn transparent" id="sign-up-btn">
+                                    Sign up
+                                </button>
+                            </div>
+                            <img src="/img/signUp-login/log2.png" class="image" alt="" />
+                        </div>
+                        <div class="panel right-panel">
+                            <div class="content">
+                                <h3>One of us ?</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
+                                    laboriosam ad deleniti.
+                                </p>
+                                <button class="btn transparent" id="sign-in-btn">
+                                    Sign in
+                                </button>
+                            </div>
+                            <svg class="image circle" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000"
+                                enable-background="new 0 0 1000 1000" xml:space="preserve">
+                                <metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
+                                <g>
+                                    <path
+                                        d="M987.2,116l-2.7,5.8c-48.4,104.9-115,200.4-196.8,282l-120.2,120c-13.7,13.6-35.8,13.6-49.6,0L510.7,416.9c-13.7-13.7-13.7-36,0-49.7l117.9-117.6c84.3-84,183.2-151.8,292.1-199.9l0,0C963.7,31.4,1000.5,70.2,987.2,116z" />
+                                    <path
+                                        d="M603.2,554.4L480.1,431.1c-9.3-9.3-24.2-9.3-33.5,0l-17,17c-36.3,36.1-32.4,102,11.2,145.4c43.6,43.5,109.4,47.2,145.7,11.2l16.8-16.8C612.5,578.7,612.5,563.6,603.2,554.4z" />
+                                    <path
+                                        d="M406.5,873.8c-6.1,6.1-12.6,11.5-19.2,16.6C249.7,1003.1,66.8,942.3,10,901.8c69.9-11.4,79-152.3,79-152.3l0.2-0.1c1.8-47.4,21.7-95.5,59.5-133c74.7-74.4,192.8-77.2,264.1-6.2C483.8,681.4,481.1,799.3,406.5,873.8z" />
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <%-include('.. /partial/footer.ejs')%>
+                    <%-include('.. /partial/js.ejs')%>
+                        <script src="/js/signUp-login.js"></script>
+    </body>
+
+    </html>

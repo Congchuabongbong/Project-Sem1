@@ -1,0 +1,117 @@
+<!-- header -->
+<%- include('../partial/header.ejs') %>
+<body>
+<div class="wrapper">
+    <!-- sidebar -->
+    <%- include('../partial/left-menu.ejs') %>
+    <div class="main">
+        <!-- nav-bar -->
+        <%- include('../partial/nav-bar.ejs') %>
+        <main class="content">
+            <div class="container-fluid p-0">
+                <form action="/admin/article/create" method="post" class="mt-2">
+                    <div class="row">
+                        <div class="col-12 col-xl-12">
+                            <h1 class="section-title">CREATE NEW ARTICLE FORM</h1>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label"><strong>Article Title</strong></label>
+                                        <input type="text" class="form-control w-50" placeholder="Title" name="name" value="<%= typeof item !== "undefined" ? item.name : ''%>">
+                                        <span class="text-danger"><%= typeof errors !== "undefined" && errors.name ? errors.name.message : ''%></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label"><strong>Type of calligraphy</strong></label>
+                                        <select name="categoryID" id="calligraphyType" class="form-control w-25">
+<!--                                            <option value="">-&#45;&#45;select-&#45;&#45;</option>-->
+                                            <% for(var i = 0; i < cateList.length; i++) {
+                                            %>
+                                                <option value="<%=cateList[i]._id%>"><%=cateList[i].name%></option>
+                                            <%
+                                            }%>
+                                        </select>
+<!--                                        <span class="text-danger"><%= typeof errors !== "undefined" && errors.category && errors.category !== '' ? errors.category.message : ''%></span>-->
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <div class="row">
+                                                <label class="form-label" for="inputEmail4"><strong>Article Thumnail</strong></label>
+                                            </div>
+                                            <img src="" alt="" id="imgThumnail01" class="img-thumbnail"
+                                                 style="width: 220px;display: none">
+                                            <input id="valueUpLoad" type="text" value="" name="thumnail"
+                                                   style="display: none">                                         
+                                            <button type="button" id="btnThunailLink" class="btn btn-info mt-2" value="Choose your file">Add files</button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="form-label"><strong>Article Description</strong></label>
+                                        <div class="col-sm-12">
+                                            <textarea name="articleDescription" class="w-75" style="height: 100px"><%= typeof item !== "undefined" ? item.articleDescription : ''%></textarea>
+                                            <span class="text-danger"><%= typeof errors !== "undefined" && errors.articleDescription ? errors.articleDescription.message : ''%></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="form-label"><strong>Article Detail</strong></label>
+                                        <div class="col-sm-12">
+                                            <textarea name="articleDetail" id="editor"><%= typeof item !== "undefined" ? item.articleDetail : ''%></textarea>
+                                            <span class="text-danger"><%= typeof errors !== "undefined" && errors.articleDetail ? errors.articleDetail.message : ''%></span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 mt-4">
+<!--                                        <label class="form-label"><strong>Posting date</strong></label>-->
+<!--                                        <input type="date" class="form-control w-25" placeholder="yyyy-mm-dd" name="createAt">-->
+                                        <button type="submit" class="btn btn-primary mt-4">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+        <!-- footer -->
+        <%- include('../partial/footer.ejs') %>
+    </div>
+</div>
+<script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
+<!-- js -->
+<%- include('../partial/js.ejs') %>
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('editor');
+
+    CKEDITOR.editorConfig = function (config) {
+        // Define changes to default configuration here. For example:
+        config.language = 'vi';
+        // config.uiColor = '#AADC6E';
+        config.htmlEncodeOutput = false;
+        config.entities = false;
+        config.entities_latin = false;
+        config.ForceSimpleAmpersand = true;
+    };
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // upload file Thumnail
+        var btnThumnailLink = document.getElementById("btnThunailLink")
+        var myWidget_thumnail = cloudinary.createUploadWidget({
+                cloudName: 'quynv300192',
+                uploadPreset: 'qivdh8qo'
+            }, (error, result) => {
+                if (!error && result && result.event === "success") if (firstTime) {{
+                    console.log('Done! Here is the image info: ', result.info);
+                    console.log(result.info.url)
+                    document.getElementById("imgThumnail01").style.display = 'block';
+                    document.getElementById("imgThumnail01").src = result.info.url;
+                    document.getElementById("valueUpLoad").value = result.info.url;
+                }
+            }
+        );
+        btnThumnailLink.addEventListener("click", function () {
+            myWidget_thumnail.open();
+        }, false);
+    })
+
+</script>
+</body>
+</html>

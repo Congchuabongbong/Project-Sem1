@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--Header-->
+<%-include('../partial/header')%>
+<!--Header-->
+<body>
+<div class="wrapper">
+    <!--left-menu-->
+    <%-include('../partial/left-menu')%>
+    <!--left-menu-->
+    <div class="main">
+
+        <!--Navbar-->
+        <%-include('../partial/nav-bar')%>
+        <!--Navbar-->
+        <main class="content">
+            <div class="container-fluid p-0">
+                <h1 class="h3 mb-3">Edit</h1>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="/admin/gallery/edit?id=<%=item._id%>" name="galleryForm" method="post">
+                                    <div style="display: none">
+                                        <input type="text" value="<%=Date.now()%>" name="updateAt">
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3 col-md-5">
+                                            <label class="form-label" for="inputEmail4">Name</label>
+                                            <input type="text" value="<%= item.name%>" class="form-control"  name="name">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="mb-3 col-md-5">
+                                            <label class="form-label" for="inputEmail4">Description</label>
+                                            <textarea class="form-control" name="description"  rows="5" style="margin-top: 0px; margin-bottom: 0px; height: 114px;"><%= item.description%>
+                                            </textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="mb-3 col-md-10">
+                                            <label class="form-label" for="inputEmail4">Photos</label>
+                                            <div id="preview-img" class="mb-3">
+                                                <%
+                                                var arrayImage = item.thumbnail.split(',');
+                                                %>
+                                                    <% if (arrayImage.length > 0){
+                                                    for (var j = 0; j < arrayImage.length; j++) {
+                                                        if(arrayImage[j].length === 0){ continue;}
+                                                    %>
+                                                    <img src="<%=arrayImage[j]%>" style="width:100px" class="img-thumbnail" alt="">
+                                                    <%
+                                                    }
+                                                    }%>
+                                            </div>
+                                            <input value="<%=item.thumbnail%>" type="hidden" class="form-control" placeholder="Enter photo link" name="thumbnail">
+                                            <button type="button" id="upload_widget" class="btn btn-info mt-2">Upload files</button>
+                                        </div>
+                                    </div>
+
+<!--                                    <div class="row">-->
+<!--                                        <div class="mb-3 col-md-4">-->
+<!--                                            <label class="form-label" for="inputEmail4">Author</label>-->
+<!--                                            <input type="text" value="<%= item.author%>" class="form-control"  placeholder="Nhập tên tác giả" name="author">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                    <div class="row">
+                                        <div class="mb-3 col-md-5">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                            <a href="/admin/gallery">
+                                                <button type="button" class="btn btn-dark float-right">Back to list</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!--footer-->
+        <%-include('../partial/footer')%>
+        <!--footer-->
+    </div>
+</div>
+<%-include('../partial/js.ejs')%>
+
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    var firstTime = true;
+    var myWidget = cloudinary.createUploadWidget({
+            cloudName: 'dxvv37gf5',
+            uploadPreset: 'vqholzvg'},
+        (error, result) => {
+            if (!error && result && result.event === "success") {
+                console.log('Done! Here is the image info: ', result.info.secure_url);
+                var previewImg = document.getElementById('preview-img');
+                if (firstTime) {
+                    document.forms['galleryForm']['thumbnail'].value = result.info.secure_url + ',';
+                    previewImg.innerHTML = `<img style="width: 150px;" src="${result.info.secure_url}" alt="" class="img-thumbnail img-bordered mr-2">`
+                    firstTime = false;
+                } else {
+                    document.forms['galleryForm']['thumbnail'].value += result.info.secure_url + ',';
+                    previewImg.innerHTML += `<img style="width: 150px;" src="${result.info.secure_url}" alt="" class="img-thumbnail img-bordered mr-2">`
+                }
+            }
+        }
+    )
+    document.getElementById("upload_widget").addEventListener("click", function(){
+        myWidget.open();
+    }, false);
+</script>
+</body>
+
+</html>

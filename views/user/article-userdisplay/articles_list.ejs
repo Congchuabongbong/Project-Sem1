@@ -1,0 +1,157 @@
+<%- include('../partial/head.ejs') %>
+
+    <head>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/css/blog_detail.css">
+        <% for(var i=0; i < list.length; i++) { if (list[i].category._id==curentCategoryID) { %>
+            <title>
+                <%= list[i].category.name %>
+            </title>
+            <% } } %>
+                <style>
+                    section h3 {
+                        font-size: small;
+                        font-family: sans-serif;
+                        color: black;
+                        font-weight: bold;
+                    }
+
+                    section .img-responsive {
+                        width: 100%;
+                        height: 250px;
+                        margin-bottom: 15px;
+                        border-radius: 5px;
+                        object-fit: cover;
+                        background-repeat: no-repeat;
+                        background-position: 50% 50%;
+                    }
+
+                    section .img-responsive:hover {
+                        opacity: 0.8;
+                    }
+                </style>
+    </head>
+
+    <body>
+        <%- include('../partial/sidebar.ejs') %>
+            <%- include('../partial/loader.ejs') %>
+                <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+                <main>
+                    <section>
+                        <div class="w3-row">
+                            <!-- Blog entries -->
+                            <div class="w3-col l8 s12">
+                                <!-- Blog entry -->
+                                <% for(var i=0; i < list.length; i++) { %>
+                                    <div class="w3-card-4 w3-padding w3-margin"
+                                        style=" display:<%= list[i].category._id == curentCategoryID ? '' : 'none' %> ">
+                                        <div class="w3-container w3-margin">
+                                            <div class="post-list">
+                                                <!-- Nội dung blog -->
+                                                <div class="mt-4">
+                                                    <div class="row">
+                                                        <div class="col-lg-5 img-responsive ">
+                                                            <a
+                                                                href="/article/detail?id=<%= list[i]._id %>&categoryID=<%= list[i].category._id%>"><img
+                                                                    class="img-responsive" src="<%= list[i].thumnail %>"
+                                                                    alt=""></a>
+                                                        </div>
+                                                        <div class="col-lg-7">
+                                                            <a
+                                                                href="/article/detail?id=<%= list[i]._id %>&categoryID=<%= list[i].category._id%>">
+                                                                <h2>
+                                                                    <%= list[i].name %>
+                                                                </h2>
+                                                            </a>
+                                                            <p class="mb-2" style="font-style: italic">
+                                                                <%= moment(list[i].createAt).format('DD MMMM YYYY') %>
+                                                            </p>
+                                                            <p style="font-weight: bold;font-size: 19px" class="mb-0">
+                                                                <%= list[i].category.name %>
+                                                            </p>
+                                                            <div class="article-summary mt-0">
+                                                                <p>
+                                                                    <%- list[i].articleDescription %>
+                                                                </p>
+                                                            </div>
+                                                            <div class="read_more">
+                                                                <a
+                                                                    href="/article/detail?id=<%= list[i]._id %>&categoryID=<%= list[i].category._id%>">Read
+                                                                    More...</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                            </div>
+
+                            <!-- Introduction menu -->
+                            <div class="w3-col l4">
+                                <!-- About Card -->
+
+                                <!-- Posts -->
+                                <div class="w3-card-4 w3-margin w3-padding">
+                                    <div class="w3-container w3-padding">
+                                        <h4>Latest Posts</h4>
+                                    </div>
+                                    <ul class="w3-ul w3-hoverable ">
+                                        <% for(var i=0 ; i <3 ; i++) { %>
+                                            <li class="w3-padding-16">
+                                                <a href="/article/detail?id=<%= list[i]._id %>">
+                                                    <div style="position: relative">
+                                                        <img src="<%= list[i].thumnail %>" alt="Image"
+                                                            class="w3-left w3-margin-right"
+                                                            style="width:65px;height: 50px">
+                                                    </div>
+                                                    <span class=""><b>
+                                                            <%= list[i].name %>
+                                                        </b></span><br>
+                                                    <span style="font-style: italic">
+                                                        <%= moment(list[i].createAt).format('DD MMMM YYYY') %>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <% } %>
+                                    </ul>
+                                </div>
+                                <div class="w3-card-4 w3-margin w3-padding">
+                                    <div class="w3-container w3-padding">
+                                        <h4>Tags</h4>
+                                    </div>
+                                    <div class="w3-ul w3-hoverable">
+                                        <p>
+                                            <a href="/article/list?categoryID=609ca925458f543f20288670"
+                                                class="ml-3 mr-2"><span
+                                                    class="w3-tag w3-light-grey w3-small w3-margin-bottom">Beginners</span></a>
+                                            <a href="/article/list?categoryID=609b6bc7fe252e3808a76e09"
+                                                class="mr-2"><span
+                                                    class="w3-tag w3-light-grey w3-small w3-margin-bottom">Kids</span></a>
+                                            <a href="/article/list?categoryID=609b81e8056c9e30b4d3d451"
+                                                class="mr-2"><span
+                                                    class="w3-tag w3-light-grey w3-small w3-margin-bottom">Greek</span></a>
+                                            <a href="/article/list?categoryID=609b81d9056c9e30b4d3d450"
+                                                class="mr-2"><span
+                                                    class="w3-tag w3-light-grey w3-small w3-margin-bottom">Indic</span></a>
+                                            <a href="/article/list?categoryID=609b6bd9fe252e3808a76e0a"
+                                                class="mr-2"><span
+                                                    class="w3-tag w3-light-grey w3-small w3-margin-bottom">Arabic</span></a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Labels / tags -->
+                            </div>
+                        </div>
+                        <br>
+                        </div>
+                    </section>
+                </main>
+                <%- include('../partial/footer.ejs') %>
+                    <%- include('../partial/js.ejs') %>
+                        <script src="/js/home.js"></script>
+    </body>
+
+    </html>

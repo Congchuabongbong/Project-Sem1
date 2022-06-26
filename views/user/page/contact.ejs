@@ -1,0 +1,63 @@
+<%-include('../partial/head.ejs')%>
+
+    <head>
+        <title>Contact Us</title>
+        <link rel="stylesheet" href="/css/contact.css">
+    </head>
+    <body  id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+        <%-include('../partial/loader.ejs')%>
+            <%-include('../partial/sidebar.ejs')%>
+                <section class="contact-section">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-6 p-0">
+                                <!-- Map -->
+                                <div class="map"><iframe
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.096060800663!2d105.77982571499325!3d21.028842035998363!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313455f9bdf0e1c7%3A0x26caee8e7662dd9b!2zRlBUIEFwdGVjaCBIw6AgTuG7mWk!5e0!3m2!1svi!2s!4v1620273658217!5m2!1svi!2s"
+                                        style="border:0;" allowfullscreen></iframe></div>
+                            </div>
+                            <div class="col-lg-6 p-0">
+                                <div class="contact-warp">
+                                    <div class="section-title mb-0">
+                                        <h2>Get in touch</h2>
+                                    </div>
+                                    <p>We are here to help answer any question you might have. Whether you have a
+                                        question about
+                                        features or anything else, our team is ready to answer. We look forward to
+                                        hearing from you</p>
+                                    <ul>
+                                        <li><i class="fas fa-map-marker-alt" style="padding-right:10px"></i>Số 8A Tôn
+                                            Thất Thuyết, Mỹ
+                                            Đình, Nam Từ Liêm, Hà Nội</li>
+                                        <li><i class="fas fa-phone-alt" style="padding-right:10px"></i>+842473008855
+                                        </li>
+                                        <li><i class="fas fa-envelope"
+                                                style="padding-right:10px"></i>quickcalligraphy@gmail.com</li>
+                                    </ul>
+                                    <form class="contact-from">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input type="text" name="name" placeholder="Your name">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="email" name="email" placeholder="Your email">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <input type="text" name="subject" placeholder="Subject">
+                                                <textarea name="message" placeholder="Message"></textarea>
+                                            </div>
+                                            <button type="submit" class="site-btn" name="submit-btn">send message</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <%-include('../partial/footer.ejs')%>
+                <%-include('../partial/js.ejs')%>
+                <script src="/js/contact.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    </body>
+    </html>

@@ -1,0 +1,93 @@
+<!-- header -->
+<%-include('../partial/header.ejs')%>
+<body>
+<div class="wrapper">
+    <!-- sidebar -->
+    <%-include('../partial/left-menu.ejs')%>
+    <div class="main">
+        <!-- nav-bar -->
+        <%-include('../partial/nav-bar.ejs')%>
+        <main class="content">
+            <div class="container-fluid p-0">
+
+                <h1 class="h3 mb-3">Tables</h1>
+
+                <div class="row">
+                    <div class="col-12">
+                        <%
+                        if(typeof message !== "undefined" && message.length > 0){
+                        %>
+                        <div class="alert alert-success alert-dismissible p-2">
+                            <%=message%>
+                            <button type="button" class="close p-2" data-dismiss="alert" aria-hidden="true">×</button>
+                        </div>
+                        <%
+                        }
+                        %>
+
+                        <div class="card">
+                            <%
+                            if(list == null || list.length == 0){
+                            %>
+                                <div class="card-header">
+                                    <h3 class="card-title">No category exists <a href="/admin/categories/create">Click here</a> to add category.</h3>
+                                </div>
+
+                            <%
+                            }else
+                            {
+                            %>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Categories</h5>
+                            </div>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th style="width:10%;">Number</th>
+                                    <th style="width:30%;">Name</th>
+                                    <th style="width:40%">Description</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% for (var i = 0; i < list.length; i++) {
+                                %>
+                                    <tr>
+                                        <td><%=i+1%></td>
+                                        <td><%=list[i].name%></td>
+                                        <td><%=list[i].description%></td>
+                                        <td class="table-action">
+                                            <a href="/admin/categories/edit?id=<%=list[i]._id%>" title="edit category"><i class="align-middle" data-feather="edit-2"></i></a>
+                                            <a href="/admin/categories/delete?id=<%=list[i]._id%>" title="delete category"><i class="align-middle" data-feather="trash"></i></a>
+                                        </td>
+                                    </tr>
+                                <%
+                                }%>
+                                <tr>
+                                    <th style="width:10%;">Number</th>
+                                    <th style="width:30%;">Name</th>
+                                    <th style="width:40%">Description</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                                <%
+                                }
+                                %>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+        </main>
+        <!-- footer -->
+        <%-include('../partial/footer.ejs')%>
+    </div>
+</div>
+<!-- js -->
+<%-include('../partial/js.ejs')%>
+</body>
+
+</html>

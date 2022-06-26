@@ -1,0 +1,104 @@
+<!-- header -->
+<%-include('../partial/header.ejs')%>
+<body>
+<div class="wrapper">
+    <!-- sidebar -->
+    <%-include('../partial/left-menu.ejs')%>
+    <div class="main">
+        <!-- nav-bar -->
+        <%-include('../partial/nav-bar.ejs')%>
+        <main class="content">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-12 col-xl-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h1>EDIT AN ARTICLE</h1>
+                                <form action="/admin/article/edit?id=<%=item._id%>" method="post">
+                                    <div style="display: none">
+                                        <input type="text" value="<%=Date.now()%>" name="updateAtttt">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Article Title</label>
+                                        <input type="text" class="form-control w-25" placeholder="Title" name="name" value="<%=item.name%>">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="inputEmail4">Type Of Calligraphy</label>
+                                        <!--                                            danh muc san pham duoc lay ra tu bang categories-->
+                                        <select name="category" id="categorySelect" class="form-control">
+                                            <option value="">---ALL---</option>
+                                            <% for(var i = 0; i < cate.length; i++) {
+                                            %>
+                                                <option value="<%= cate[i]._id %>" <%= currentCategoryID == cate[i]._id ? 'selected':'' %>><%= cate[i].name %></option>
+                                            <%
+                                            } %>
+                                        </select>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <div class="row">
+                                                <label class="form-label" for="inputEmail4"><strong>Article Thumnail</strong></label>
+                                            </div>
+                                            <img src="<%-item.thumnail%>" alt="" id="imgThumnail01" class="img-thumbnail"
+                                                 style="width: 220px;display: block">
+                                            <input id="valueUpLoad" type="text" value="<%-item.thumnail%>" name="thumnail"
+                                                   style="display: none">
+                                            <input type="button" id="btnThunailLink" value="Choose your file">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="form-label"><strong>Article Description</strong></label>
+                                        <div class="col-sm-12">
+                                            <textarea name="articleDescription" class="w-75" style="height: 100px"><%-item.articleDescription%></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <label class="form-label">Content of the article</label>
+                                        <textarea style="min-height: 400px" class="form-control" placeholder="Enter..." rows="3" name="articleDetail"
+                                                  spellcheck="false" ><%-item.articleDetail%></textarea>
+                                    </div>
+                                    <div class="mt-4">
+                                        <button type="submit" class="btn btn-primary">Confirm</button>
+                                        <a href="/admin/article">
+                                            <button type="button" class="btn btn-dark float-right">Back to list</button>
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- footer -->
+        <%-include('../partial/footer.ejs')%>
+    </div>
+</div>
+<script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
+<!-- js -->
+<%-include('../partial/js.ejs')%>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // upload file Thumnail
+        var btnThumnailLink = document.getElementById("btnThunailLink")
+        var myWidget_thumnail = cloudinary.createUploadWidget({
+                cloudName: 'quynv300192',
+                uploadPreset: 'qivdh8qo'
+            }, (error, result) => {
+                if (!error && result && result.event === "success") {
+                    console.log('Done! Here is the image info: ', result.info);
+                    console.log(result.info.url)
+                    document.getElementById("imgThumnail01").src = result.info.url;
+                    document.getElementById("valueUpLoad").value = result.info.url;
+                }
+            }
+        )
+        btnThumnailLink.addEventListener("click", function () {
+            myWidget_thumnail.open();
+        }, false);
+    })
+</script>
+
+</body>
+
+</html>

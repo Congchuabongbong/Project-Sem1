@@ -1,0 +1,54 @@
+<!-- header -->
+<%- include('../partial/header.ejs') %>
+<body>
+<div class="wrapper">
+    <!-- sidebar -->
+    <%- include('../partial/left-menu.ejs') %>
+    <div class="main">
+        <!-- nav-bar -->
+        <%- include('../partial/nav-bar.ejs') %>
+        <main class="content">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-12 col-xl-12">
+                        <h1>DELETE AN ARTICLE</h1>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Article Title</label>
+                                    <h2><%= item.name %></h2>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Type of calligraphy:</label>
+                                    <h3><%= item.category.name %></h3>
+                                </div>
+                                <div class="mb-3">
+                                    <img class="img-thumbnail w-25" src="<%= item.thumnail %>" alt="">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Content of the article</label>
+                                    <div>
+                                        <%- item.articleDetail %>
+                                    </div>
+                                </div>
+                                <form action="/admin/article/delete?id=<%= item._id %>" method="post">
+                                    <button type="submit" class="btn btn-danger">Confirm</button>
+                                    <a href="/admin/article">
+                                        <button type="button" class="btn btn-dark float-right">Back to list</button>
+                                    </a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- footer -->
+        <%- include('../partial/footer.ejs') %>
+    </div>
+</div>
+<!-- js -->
+<%- include('../partial/js.ejs') %>
+</body>
+
+</html>

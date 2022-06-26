@@ -1,0 +1,162 @@
+<%- include('../partial/head.ejs') %>
+
+    <head>
+        <title>Calligraphy Blog</title>
+        <link rel="stylesheet" href="/css/blog.css">
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous"
+            src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v10.0" nonce="j0FKofGa"></script>
+    </head>
+
+    <body>
+
+        <%- include('../partial/loader.ejs') %>
+            <div class="header-blog">
+                <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+                <%- include('../partial/sidebar.ejs') %>
+                    <div class="banner">
+                        <div class="container-blog ">
+                            <h1 class="banner-title">
+                                <span>Calligraphy.</span>Blog
+                            </h1>
+                            <p>Everything that you want to know about Calligraphy</p>
+                            <form name="searchForm" action="/blog" method="get">
+                                <input type="search" name="keyword" class="search-input"
+                                    placeholder="find your news calligraphy . . ." value="<%=currentKeyword%>">
+                                <input class="form-control" type="hidden" name="page" value="<%=page%>">
+                                <input class="form-control" type="hidden" name="limit" value="<%=limit%>">
+                                <button type="submit" class="search-btn">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+            </div>
+            <!-- blog -->
+            <section class="blog" id="blog">
+                <div class="container-blog">
+                    <div class="title">
+                        <h2>Quick Calligraphy Blog</h2>
+                        <p>Let's preserve and develop calligraphy together</p>
+                    </div>
+                    <div class="blog-content">
+                        <!-- item -->
+                        <% for(var i=0; i < list1.length; i++) { %>
+                            <div class="design-item">
+                                <div class="design-img img-responsive">
+                                    <img class="img-responsive" src="<%= list1[i].thumnail %>" alt="">
+                                    <span><i class="far fa-heart"></i> 22</span>
+                                    <span>
+                                        <%= moment(list1[i].createAt).format('DD MMMM YYYY') %>
+                                    </span>
+                                </div>
+                                <div class="blog-text">
+                                    <h2>
+                                        <%= list1[i].name %>
+                                    </h2>
+                                    <div class="article-description">
+                                        <p>
+                                            <%= list1[i].articleDescription %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <a href="/article/detail?id=<%= list1[i]._id %>&categoryID=<%= list1[i].category._id%>">Read
+                                    More</a>
+                            </div>
+                            <% } %>
+                    </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination pagination-md justify-content-center">
+                            <% if (page> 1) {
+                                %>
+                                <li class="page-item"><a class="page-link" href="1">First</a></li>
+                                <li class="page-item"><a class="page-link" href="<%=parseInt(page) - 1%>">Previous</a>
+                                </li>
+                                <% } %>
+
+                                    <% if (page> 2) {
+                                        %>
+                                        <li class="page-item"><a class="page-link" href="<%=parseInt(page) - 2%>">
+                                                <%=page - 2%>
+                                            </a></li>
+                                        <% } %>
+                                            <% if (page> 1) {
+                                                %>
+                                                <li class="page-item"><a class="page-link"
+                                                        href="<%=parseInt(page) - 1%>">
+                                                        <%=page - 1%>
+                                                    </a></li>
+                                                <% } %>
+
+                                                    <li class="page-item active"><a class="page-link" href="#">
+                                                            <%= page %>
+                                                        </a></li>
+
+                                                    <% if (page + 1 <=totalPage) { %>
+                                                        <li class="page-item"><a class="page-link"
+                                                                href="<%=parseInt(page) + 1%>">
+                                                                <%= page + 1 %>
+                                                            </a></li>
+                                                        <% } %>
+
+                                                            <% if (page + 2 <=totalPage) { %>
+                                                                <li class="page-item"><a class="page-link"
+                                                                        href="<%=parseInt(page) + 2%>">
+                                                                        <%= page + 2 %>
+                                                                    </a></li>
+                                                                <% } %>
+
+                                                                    <% if (page < totalPage) { %>
+                                                                        <li class="page-item"><a class="page-link"
+                                                                                href="<%=parseInt(page) + 2%>">Next</a>
+                                                                        </li>
+                                                                        <li class="page-item"><a class="page-link"
+                                                                                href="<%=totalPage%>">Last</a></li>
+                                                                        <% } %>
+                        </ul>
+                    </nav>
+                </div>
+
+            </section>
+
+            <!-- about -->
+            <section class="about" id="about">
+                <div class="container-blog">
+                    <div class="about-content">
+                        <div>
+                            <img src="/img/blog/about-bg1.jpeg" alt="">
+                        </div>
+                        <div class="about-text">
+                            <div class="title">
+                                <h2>Our team</h2>
+                                <p>art & design is my passion</p>
+                            </div>
+                            <p>Our group is the first term students of FPT Aptech school. Perfecting the product is
+                                always the top goal of our team. We hope that the information on calligraphy on our
+                                website makes you satisfied. We will continue to bring the most useful information to
+                                all viewers.</p>
+                            <p>Your support is always the motivation to help us improve our website. We are very
+                                grateful to the viewers who have accompanied us to grow the community of calligraphy
+                                lovers. </p>
+                        </div>
+                    </div>
+                    <div class="fb-comments" data-href="http://localhost:3000/blog" data-width="1000" data-numposts="3"
+                        data-order-by="reverse_time"></div>
+                </div>
+            </section>
+
+            <!-- end of about -->
+            <%- include('../partial/footer.ejs') %>
+                <%- include('../partial/js.ejs') %>
+                    <script src="/js/blog.js"></script>
+                    <script>
+                        $('.page-link').click(function (e) {
+                            e.preventDefault();
+                            document.forms['searchForm']['page'].value = $(this).attr('href');
+                            document.forms['searchForm'].submit();
+                        });
+                    </script>
+    </body>
+
+    </html>

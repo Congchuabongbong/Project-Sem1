@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<!--Header-->
+<%-include('../partial/header')%>
+<!--Header-->
+<body>
+<div class="wrapper">
+
+    <!--left-menu-->
+    <%-include('../partial/left-menu')%>
+    <!--left-menu-->
+    <div class="main">
+
+        <!--Navbar-->
+        <%-include('../partial/nav-bar')%>
+        <!--Navbar-->
+        <main class="content">
+            <div class="container-fluid p-0">
+                <h1 class="h3 mb-3">Details</h1>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="/admin/gallery/create" method="post">
+                                    <div class="row">
+                                        <div class="mb-3 col-md-5">
+                                            <label class="form-label" for="inputEmail4"><h4>Name</h4></label>
+                                            <p><%=item.name%></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="mb-3 col-md-5">
+                                            <label class="form-label" for="inputEmail4"><h4>Description</h4></label>
+                                            <p><%=item.description%></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="mb-3 col-md-10">
+                                            <label class="form-label" for="inputEmail4"><h4>Picture</h4></label>
+                                            <%
+                                            var arrayImage = item.thumbnail.split(',');
+                                            %>
+                                                <% if (arrayImage.length > 0){
+                                                for (var j = 0; j < arrayImage.length; j++) {
+                                                    if(arrayImage[j].length === 0){ continue;}
+                                                %>
+                                                <img src="<%=arrayImage[j]%>" style="width:100px" class="img-thumbnail" alt="">
+                                                <%
+                                                }
+                                                }%>
+                                        </div>
+                                    </div>
+
+<!--                                    <div class="row">-->
+<!--                                        <div class="mb-3 col-md-4">-->
+<!--                                            <label class="form-label" for="inputEmail4"><h4>Tác giả</h4></label>-->
+<!--                                            <p><%=item.author%></p>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                    <div class="row">
+                                        <div class="mb-3 col-md-5 mt-5">
+                                            <a href="/admin/gallery/edit?id=<%=item._id%>"><button type="button" class="btn btn-primary">Edit</button></a>
+                                            <a href="/admin/gallery/delete?id=<%=item._id%>"><button type="button" class="btn btn-danger">Delete</button></a>
+                                            <a href="/admin/gallery"><button type="button" class="btn btn-dark float-right">Back to list</button></a>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!--footer-->
+        <%-include('../partial/footer')%>
+        <!--footer-->
+    </div>
+</div>
+<%-include('../partial/js.ejs')%>
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    var firstTime = true;
+    var myWidget = cloudinary.createUploadWidget({
+            cloudName: 'dxvv37gf5',
+            uploadPreset: 'vqholzvg'},
+        (error, result) => {
+            if (!error && result && result.event === "success") {
+                console.log('Done! Here is the image info: ', result.info.secure_url);
+                var previewImg = document.getElementById('preview-img');
+                if (firstTime) {
+                    document.forms['galleryForm']['thumbnail'].value = result.info.secure_url + ',';
+                    previewImg.innerHTML = `<img style="width: 150px;" src="${result.info.secure_url}" alt="" class="img-thumbnail img-bordered mr-2">`
+                    firstTime = false;
+                } else {
+                    document.forms['galleryForm']['thumbnail'].value += result.info.secure_url + ',';
+                    previewImg.innerHTML += `<img style="width: 150px;" src="${result.info.secure_url}" alt="" class="img-thumbnail img-bordered mr-2">`
+                }
+            }
+        }
+    )
+    document.getElementById("upload_widget").addEventListener("click", function(){
+        myWidget.open();
+    }, false);
+</script>
+</body>
+
+</html>
